@@ -1,0 +1,68 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.scottlau</groupId>
+    <artifactId>db-templates-flyway</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>db-templates-flyway</name>
+    <url>https://github.com/Scott-Lau/db-templates-flyway</url>
+    <scm>
+        <connection>scm:git:https://github.com/Scott-Lau/db-templates-flyway.git</connection>
+        <url>https://github.com/Scott-Lau/db-templates-flyway</url>
+        <tag>master</tag>
+    </scm>
+    <contributors>
+        <contributor>
+            <name>Scott Lau</name>
+        </contributor>
+    </contributors>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>7.6.0</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.23</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>7.6.0</version>
+                <configuration>
+                    <url>jdbc:mysql://localhost:3306/flyway_test</url>
+                    <!-- user credential is written in user settings.xml(~/.m2/settings.xml) like this:
+                    <servers>
+                        <server>
+                            <id>flyway-db</id>
+                            <username>scott</username>
+                            <password>tiger</password>
+                        </server>
+                    </servers>
+                    -->
+                    <schemas>
+                        <schema>flyway_test</schema>
+                    </schemas>
+                    <locations>
+                        <location>classpath:db/migration</location>
+                    </locations>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
